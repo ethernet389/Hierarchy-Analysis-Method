@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
 
 public class Main {
     static Scanner in = new Scanner(System.in);
@@ -68,10 +69,30 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        out.println("Входной файл: "); //README.txt
+        out.println("Входной файл: "); //README.md
         File data = new File(in.nextLine());
-        Scanner input = new Scanner(data);
-        String result = ArrayToString(completeTask(input));
+        Scanner input0 = new Scanner(data);
+
+        //Вычисление рейтинга
+        String result = ArrayToString(completeTask(input0));
+        out.println("Rating: ");
         out.println(result);
+        out.println();
+
+        //Вычисление CI, RI, CR
+        Scanner input1 = new Scanner(data);
+
+        int countCrits = input1.nextInt();
+        for (int i = 0; i < countCrits*countCrits; ++i) input1.nextDouble();
+
+        int countAlts = input1.nextInt();
+        for (int i = 0; i < countCrits; ++i){
+            Matrix inputMatrix = inputMatrix(input1, countAlts, countAlts);
+            out.println("Alt matrix #" + (i + 1));
+            out.printf("CI: %.10f\n", MatrixFunctions.getCI(inputMatrix));
+            out.printf("RI: %.10f\n", MatrixFunctions.getRI(inputMatrix));
+            out.printf("CR: %.10f\n", MatrixFunctions.getCR(inputMatrix));
+            out.println();
+        }
     }
 }

@@ -1,6 +1,8 @@
 import Jama.Matrix;
 
 public final class MatrixFunctions {
+
+    //Сумма каждого столбца матрицы
     static public double[] getSumOfColumns(Matrix matrix){
         double[] columnSum = new double[matrix.getColumnDimension()];
 
@@ -15,12 +17,14 @@ public final class MatrixFunctions {
         return columnSum;
     }
 
+    //Относительные веса матрицы
     static public double[] getRelativeWeights(Matrix matrix){
         double[] ret = getSumOfRows(matrix);
         for (int i = 0; i < ret.length; ++i) ret[i] /= matrix.getColumnDimension();
         return ret;
     }
 
+    //Сумма каждой строки матрицы
     static public double[] getSumOfRows(Matrix matrix){
         double[] linesSum = new double[matrix.getRowDimension()];
 
@@ -35,6 +39,7 @@ public final class MatrixFunctions {
         return linesSum;
     }
 
+    //Нормализация матрицы
     static public Matrix normalize(Matrix matrix){
         double[] columnSum = getSumOfColumns(matrix);
 
@@ -47,10 +52,12 @@ public final class MatrixFunctions {
         return matrix;
     }
 
+    //Нормализация копии матрицы
     static public Matrix getNormalized(Matrix matrix){
         return MatrixFunctions.normalize(matrix.copy());
     }
 
+    //Преобразование матрицы в строку
     static public String toString(Matrix matrix) {
         StringBuilder buffer = new StringBuilder();
 
@@ -64,5 +71,29 @@ public final class MatrixFunctions {
         }
 
         return buffer.toString();
+    }
+
+    //Коэффициент согласованности матрицы
+    static public double getCI(Matrix critMatrix){
+        double[] normalizedCritMatrixWeights = getRelativeWeights(getNormalized(critMatrix));
+        Matrix weights = new Matrix(normalizedCritMatrixWeights.length, 1);
+        for (int i = 0; i < weights.getRowDimension(); ++i){
+            weights.set(i, 0, normalizedCritMatrixWeights[i]);
+        }
+
+        Matrix resultMatrix = critMatrix.times(weights);
+
+        return (getSumOfColumns(resultMatrix)[0] - critMatrix.getColumnDimension())
+                / (critMatrix.getColumnDimension() - 1);
+    }
+
+    //Стохастический коэффициент согласоввнности матрицы
+    static public double getRI(Matrix critMatrix){
+        return (1.98 * (critMatrix.getColumnDimension() - 2)) / critMatrix.getColumnDimension();
+    }
+
+    //Коэффициент согласованности матрицы
+    static public double getCR(Matrix critMatrix){
+        return getCI(critMatrix) / getRI(critMatrix);
     }
 }
