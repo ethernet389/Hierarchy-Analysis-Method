@@ -89,9 +89,9 @@ public class Main {
         for (int i = 0; i < countCrits; ++i){
             Matrix inputMatrix = inputMatrix(input1, countAlts, countAlts);
             out.println("Alt matrix #" + (i + 1));
-            out.printf("CI: %.10f\n", MatrixFunctions.getCI(inputMatrix));
-            out.printf("RI: %.10f\n", MatrixFunctions.getRI(inputMatrix));
-            out.printf("CR: %.10f\n", MatrixFunctions.getCR(inputMatrix));
+            out.printf("CI: %.16f\n", MatrixFunctions.getCI(inputMatrix));
+            out.printf("RI: %.16f\n", MatrixFunctions.getRI(inputMatrix));
+            out.printf("CR: %.16f\n", MatrixFunctions.getCR(inputMatrix));
             out.println();
         }
     }
