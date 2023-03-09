@@ -81,7 +81,7 @@ public class Main {
         Scanner input1 = new Scanner(data);
 
         //Вычисление RWOECFEOC
-        //Каждому i-ой строке соответсвует критерий, каждому j-ому столбцу соответсвует альтернатива
+        //Каждой i-ой строке соответсвует критерий, каждому j-ому столбцу соответсвует альтернатива
         ArrayList<double[]> listOfWeights = getRWOECFEOC(input0);
         out.println("Relative Weights Of Each Candidate For Each Of Criteria: ");
         for (double[] list : listOfWeights){
