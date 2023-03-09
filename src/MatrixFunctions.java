@@ -1,5 +1,7 @@
 import Jama.Matrix;
 
+import java.util.Scanner;
+
 public final class MatrixFunctions {
 
     //Сумма каждого столбца матрицы
@@ -96,4 +98,17 @@ public final class MatrixFunctions {
     static public double getCR(Matrix critMatrix){
         return getCI(critMatrix) / getRI(critMatrix);
     }
+
+    //Ввод матрицы через Scanner
+    static public Matrix inputMatrix(Scanner in, int rows, int columns){
+        double[][] m = new double[rows][columns];
+        for (int i = 0; i != rows; ++i){
+            for (int j = 0; j != columns; ++j){
+                m[i][j] = in.nextDouble();
+            }
+        }
+        return new Matrix(m);
+    }
+
+
 }

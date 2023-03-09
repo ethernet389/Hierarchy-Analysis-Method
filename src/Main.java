@@ -5,22 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 
 public class Main {
     static Scanner in = new Scanner(System.in);
 
     static PrintStream out = new PrintStream(System.out);
-
-    static public Matrix inputMatrix(Scanner in, int rows, int columns){
-        double[][] m = new double[rows][columns];
-        for (int i = 0; i != rows; ++i){
-            for (int j = 0; j != columns; ++j){
-                m[i][j] = in.nextDouble();
-            }
-        }
-        return new Matrix(m);
-    }
 
     static public String ArrayToString(double[] m){
         StringBuilder sb = new StringBuilder("[");
@@ -29,13 +18,14 @@ public class Main {
         return sb.toString();
     }
 
-    //Решение задачи для одного человека (один уровень критериев)
-    static public double[] completeTask(Scanner data){
+    //getRelativeWeightsOfEachCandidateForEachOfCriteria
+    //Получить относительные веса для каждого кандитата по каждому из критериев (пер.)
+    static public ArrayList<double[]> getRWOECFEOC(Scanner data){
         //Кол-во личных критериев
         int numPar = data.nextInt();
 
         //Матрица отношений личных критериев
-        Matrix relPar = inputMatrix(data, numPar, numPar);
+        Matrix relPar = MatrixFunctions.inputMatrix(data, numPar, numPar);
         MatrixFunctions.normalize(relPar);
 
         //Кол-во альтернатив
@@ -44,10 +34,11 @@ public class Main {
         //Относительная оценка альтернатив по каждому из критериев
         ArrayList<Matrix> listOfRelAlts = new ArrayList<>(numAlt);
         for (int i = 0; i < numPar; ++i){
-            Matrix matrix = inputMatrix(data, numAlt, numAlt);
+            Matrix matrix = MatrixFunctions.inputMatrix(data, numAlt, numAlt);
             MatrixFunctions.normalize(matrix);
             listOfRelAlts.add(matrix);
         }
+
         //Относительные веса между альтернативами по каждому критерию
         ArrayList<double[]> listOfWeights = new ArrayList<>();
         for (Matrix listOfRelAlt : listOfRelAlts) {
@@ -55,6 +46,21 @@ public class Main {
                     MatrixFunctions.getRelativeWeights(listOfRelAlt)
             );
         }
+
+        return listOfWeights;
+    }
+
+    //Решение задачи для одного человека (один уровень критериев)
+    static public double[] completeTask(Scanner data, ArrayList<double[]> listOfWeights){
+        //Кол-во личных критериев
+        int numPar = data.nextInt();
+
+        //Матрица отношений личных критериев
+        Matrix relPar = MatrixFunctions.inputMatrix(data, numPar, numPar);
+        MatrixFunctions.normalize(relPar);
+
+        //Кол-во альтернатив
+        int numAlt = data.nextInt();
 
         //Обход дерева иерархий
         double[] result = new double[numAlt];
@@ -72,22 +78,31 @@ public class Main {
         out.println("Входной файл: "); //README.md
         File data = new File(in.nextLine());
         Scanner input0 = new Scanner(data);
+        Scanner input1 = new Scanner(data);
+
+        //Вычисление RWOECFEOC
+        ArrayList<double[]> listOfWeights = getRWOECFEOC(input0);
+        out.println("Relative Weights Of Each Candidate For Each Of Criteria: ");
+        for (double[] list : listOfWeights){
+            out.println(ArrayToString(list));
+        }
+        out.println();
 
         //Вычисление рейтинга
-        String result = ArrayToString(completeTask(input0));
+        String result = ArrayToString(completeTask(input1, listOfWeights));
         out.println("Rating: ");
         out.println(result);
         out.println();
 
         //Вычисление CI, RI, CR
-        Scanner input1 = new Scanner(data);
+        Scanner input2 = new Scanner(data);
 
-        int countCrits = input1.nextInt();
-        for (int i = 0; i < countCrits*countCrits; ++i) input1.nextDouble();
+        int countCrits = input2.nextInt();
+        for (int i = 0; i < countCrits*countCrits; ++i) input2.nextDouble();
 
-        int countAlts = input1.nextInt();
+        int countAlts = input2.nextInt();
         for (int i = 0; i < countCrits; ++i){
-            Matrix inputMatrix = inputMatrix(input1, countAlts, countAlts);
+            Matrix inputMatrix = MatrixFunctions.inputMatrix(input2, countAlts, countAlts);
             out.println("Alt matrix #" + (i + 1));
             out.printf("CI: %.16f\n", MatrixFunctions.getCI(inputMatrix));
             out.printf("RI: %.16f\n", MatrixFunctions.getRI(inputMatrix));
