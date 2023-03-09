@@ -3,7 +3,7 @@ import Jama.Matrix;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CalculatingClass {
+public final class CalculatingClass {
     //Решение задачи для одного человека (один уровень критериев)
     static public Buffer completeTask(Scanner data){
         //Буфер для хранения данных
