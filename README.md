@@ -12,8 +12,8 @@
 
 ## Структура
 
-  - [*src/Main.java*](https://github.com/ethernet389/Solve-on-Java/blob/main/src/Main.java) - исполняемый код ([completeTask](https://github.com/ethernet389/Solve-on-Java/blob/main/src/Main.java#L54) - функция для решения задачи)<br/>
-  - [*src/MatrixFunctions.java*](https://github.com/ethernet389/Solve-on-Java/blob/main/src/MatrixFunctions.java) - вспомогательные функции для реализации метода анализа иерархий<br>
+  - [*src/math.Main.java*](https://github.com/ethernet389/Solve-on-Java/blob/main/src/Main.java) - исполняемый код ([completeTask](https://github.com/ethernet389/Solve-on-Java/blob/main/src/Main.java#L54) - функция для решения задачи)<br/>
+  - [*src/math.MatrixFunctions.java*](https://github.com/ethernet389/Solve-on-Java/blob/main/src/MatrixFunctions.java) - вспомогательные функции для реализации метода анализа иерархий<br>
   - [*Jama-1.0.3.jar*](https://github.com/ethernet389/Solve-on-Java/blob/main/Jama-1.0.3.jar) - библиотека, реализующая матрицы<br/>
   - [*data_sets*](https://github.com/ethernet389/Solve-on-Java/blob/main/data_sets) - наборы данных из упражнений/примеров<br/>
   - [*docs*](https://github.com/ethernet389/Solve-on-Java/blob/main/docs) - литература<br/>

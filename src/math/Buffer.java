@@ -1,3 +1,5 @@
+package math;
+
 import java.util.ArrayList;
 
 public final class Buffer {
