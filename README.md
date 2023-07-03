@@ -1,4 +1,4 @@
-# Solve-on-Java
+# Hierarchy Analysis Method
   Реализация метода анализа иерархий
 
 
