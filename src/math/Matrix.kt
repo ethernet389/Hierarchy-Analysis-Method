@@ -88,6 +88,7 @@ class Matrix(array: Array<DoubleArray>): JMatrix(array.copyOf()){
         }
 
         object Coefficients {
+            @JvmStatic
             fun CI(matrix: Matrix): Double {
                 val normalizedMatrixWeights =
                         matrix.normalized().relativeWeights
@@ -97,11 +98,14 @@ class Matrix(array: Array<DoubleArray>): JMatrix(array.copyOf()){
                 return (resultMatrix.sumOfColumns.first() - matrix.columnDimension) / (matrix.columnDimension - 1)
             }
 
+            @JvmStatic
             fun RI(matrix: Matrix): Double = (1.98 * (matrix.columnDimension - 2)) / matrix.columnDimension
 
+            @JvmStatic
             fun CR(matrix: Matrix): Double = CI(matrix) / RI(matrix)
         }
 
+        @JvmStatic
         fun MAI(data: Scanner): Buffer {
             val buffer = Buffer()
 
