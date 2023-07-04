@@ -76,6 +76,8 @@ class Matrix(array: Array<DoubleArray>): JMatrix(array.copyOf()){
         else -> false
     }
 
+    override fun hashCode(): Int = super.hashCode()
+
     companion object Square{
         fun input(input: Scanner, rows: Int, columns: Int): Matrix {
             val m = Array(rows) { DoubleArray(columns) }
