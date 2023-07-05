@@ -1,11 +1,9 @@
 package math
 
 data class Buffer(
-    var relativeWeights: ArrayList<DoubleArray>,
-    var finalRelativeWeights: DoubleArray
+    val relativeWeights: ArrayList<DoubleArray>,
+    val finalRelativeWeights: DoubleArray
 ) {
-
-    constructor(): this(ArrayList<DoubleArray>(), doubleArrayOf())
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -21,5 +19,13 @@ data class Buffer(
         var result = relativeWeights.hashCode()
         result = 31 * result + finalRelativeWeights.contentHashCode()
         return result
+    }
+
+    override fun toString(): String {
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("Relative Weights Of Each Candidate For Each Of Criteria: \n")
+        relativeWeights.forEach { stringBuilder.append("${it.contentToString()}\n") }
+        stringBuilder.append("Final Rating:\n${finalRelativeWeights.contentToString()}")
+        return stringBuilder.toString()
     }
 }
