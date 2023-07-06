@@ -16,11 +16,11 @@ fun main() {
 
     val input2 = Scanner(data)
 
-    val countCrits = input2.nextInt()
-    for (i in 0 until countCrits*countCrits) input2.nextDouble()
+    val numPer = input2.nextInt()
+    for (i in 0 until numPer*numPer) input2.nextDouble()
 
     val countAlts = input2.nextInt()
-    for (i in 0 until  countCrits){
+    for (i in 0 until  numPer){
         val inputMatrix = input2.nextMatrix(countAlts, countAlts)
         val str = """
             | Alt matrix #${i+1}
